@@ -1,0 +1,29 @@
+header {
+    margin-bottom: 50px;
+    background-color: #0dbeff;
+    display: flex;
+    padding: 10px;
+    box-shadow: 0 1px 10px black;
+}
+
+header>span,
+header>div>span {
+    color: #fafafa;
+    margin: auto;
+    font-family: Calibri;
+    font-size: 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    padding: 10px;
+    border-radius: 10px;
+    font-weight: bold;
+}
+
+.hoverspan:hover {
+    background-color: #088fc1;
+}
+
+header>.logo {
+    position: absolute;
+    width: 200px;
+}

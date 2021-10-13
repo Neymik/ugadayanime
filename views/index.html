@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+         ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+         ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        /* Handle */
+
+         ::-webkit-scrollbar-thumb {
+            background: #888;
+        }
+        /* Handle on hover */
+
+         ::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+
+        body {
+            /* min-height: 100vh; */
+            margin: 0;
+            background-color: #fafafa;
+            font-family: Calibri;
+        }
+
+        .body {
+            display: flex;
+        }
+
+        .body>div {
+            margin: auto;
+            display: flex;
+        }
+
+        .game,
+        .player {
+            /* border: 1px solid black; */
+            padding: 5px;
+            display: grid;
+            /* margin: auto; */
+        }
+
+        .game {
+            width: 1000px;
+            grid-template-rows: auto;
+        }
+
+        .player {
+            width: 300px;
+            min-height: 100%;
+            grid-template-rows: 66px 350px 350px;
+        }
+
+        .player>input {
+            height: 20px;
+            padding: 20px;
+            border-radius: 10px;
+            border: 3px solid #0dbeff;
+            box-shadow: 1px 1px 10px black;
+            font-size: 35px;
+            width: 300px;
+        }
+
+        .game>.selection {
+            display: grid;
+            grid-template-columns: 500px 500px;
+            grid-template-rows: 120px;
+            /* margin: auto; */
+            /* margin-top: 5%; */
+        }
+
+        .game>.selection>div {
+            padding: 10px;
+            width: 450px;
+            height: 75px;
+            display: flex;
+            transition: all 0.3s ease;
+            border-radius: 10px;
+            box-shadow: 1px 1px 10px black;
+            background-color: #0dbeff;
+        }
+
+        .game>.selection>div>span {
+            font-size: 25px;
+            color: white;
+        }
+
+        .game>.selection>div {
+            cursor: pointer;
+        }
+
+        .game>.selection>div:hover {
+            background-color: #ffa296;
+        }
+
+        .imageAnime {
+            width: 100%;
+            height: 400px;
+            margin: auto;
+            /* border: 0; */
+            border-radius: 50px;
+        }
+
+        .imageBlock {
+            background-size: cover;
+            position: relative;
+            border-radius: 50px;
+            border: 5px solid #0dbeff;
+            height: 400px;
+        }
+
+        .volueRange {
+            position: absolute;
+            top: 0;
+            left: 3px;
+            background-color: #fafafa;
+            height: 50px;
+            border: 5px solid #0dbeff;
+            justify-content: center;
+            display: none;
+            width: 50PX;
+            border-radius: 50px;
+        }
+
+        .time {
+            position: absolute;
+            bottom: -5px;
+            right: -5px;
+            padding: 10px;
+            font-size: 50px;
+            border-radius: 100%;
+            border: 5px solid #0dbeff;
+            background-color: #f40670;
+            width: 60px;
+            height: 60px;
+            text-align: center;
+            color: #fafafa;
+            font-weight: bold;
+        }
+
+        .player>div {
+            max-height: 500px;
+            overflow: auto;
+        }
+
+        #divPeople {
+            border: 3px solid #0dbeff;
+            border-radius: 10px;
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+
+        #divPeople>div {
+            display: grid;
+            grid-template-columns: 40px 260px 40px;
+            width: 100%;
+        }
+
+        #divPeople>div>span {
+            color: #0dbeff;
+            font-size: 30px;
+            margin: auto;
+        }
+
+        .namePlayer {
+            max-width: 280px;
+            word-wrap: break-word;
+            color: #0dbeff;
+            font-size: 30px;
+        }
+
+        .selection>span {
+            margin: auto;
+            font-size: 50px;
+        }
+
+        #chatPlayer {
+            display: flex;
+            width: 330px;
+            position: relative;
+            height: 300px;
+            border: 3px solid #0dbeff;
+            overflow: hidden;
+            border-radius: 15px;
+            padding: 5px;
+        }
+
+        #chatPlayer>input {
+            left: -2px;
+            height: 40px;
+            width: 99%;
+            border-radius: 15px;
+            position: absolute;
+            bottom: -1px;
+            border: 3px solid #0dbeff;
+            font-size: 30px;
+        }
+
+        .messagePlayer {
+            display: grid;
+        }
+
+        .playerMessage {
+            font-size: 30px;
+            color: #0dbeff;
+        }
+
+        .timeMessage {
+            color: #b3b3b3;
+        }
+
+        #nameSong {
+            margin: auto;
+            font-size: 30px;
+            display: block;
+            position: absolute;
+            bottom: -5px;
+            border: 5px solid #0dbeff;
+            left: 0;
+            padding: 10px;
+            border-radius: 40px;
+            background-color: #fafafa;
+        }
+        .volueButton {
+          position: absolute;
+          top: 0;
+          left: 0;
+          border: 5px solid #0dbeff;
+          border-radius: 50%;
+          width: 50px;
+          height: 50px;
+          text-align: center;
+          font-size: 35px;
+          cursor: pointer;
+          background-color: #fafafa;
+        }
+    </style>
+    <link rel="stylesheet" href="css/header.css">
+</head>
+
+<body>
+    <header>
+        <span></span>
+        <img class="logo" src="images/LogoShadow.png" alt="" srcset="">
+
+        <span class="hoverspan">ВЫБОР ИГРЫ</span>
+        <span class="hoverspan">РЕЙТИНГ</span>
+
+        <div style="margin: auto; display: flex;">
+            <span class="hoverspan" style="padding-right: 5px;" id="login">ВХОД</span>
+            <span style="padding: 10px;">|</span>
+            <span class="hoverspan" style="padding-left: 5px;" id="reg">РЕГИСТРАЦИЯ</span>
+            <span class="hoverspan" style="display: none;">АККАУНТ</span>
+        </div>
+    </header>
+
+
+    <div class="body">
+        <div>
+            <div class="game">
+                <div class="imageBlock">
+                    <img class="imageAnime" src='images/animesleep.jpg' id="img" alt="">
+                    <span class="time" id="time">10</span>
+
+                    <div class="volueRange"><span style="width: 30px;"></span><input type="range" min="0" max="100" id="size" oninput="volumeChange(this.value)" value="50"></div>
+                    <span onclick="volumeBlock()" class="volueButton">🔉</span>
+                    <span id="nameSong">Название Аниме</span>
+                </div>
+
+
+                <div class="selection" id="selection">
+                    <span>Ожидайте начало раунда</span>
+                </div>
+            </div>
+            <div class="player">
+
+                <input id="Nickname" type="text" name="" value="Пользователь" maxlength='10' placeholder="Nickname" onchange="userAction(localStorage.getItem('song'))">
+
+                <div id='divPeople'>
+
+                </div>
+                <div id='chatPlayer'>
+                    <div id="message">
+
+                    </div>
+                    <input id="inputMessage" type="text" placeholder="Сообщение...">
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="javascripts\howler\dist\howler.js" charset="utf-8"></script>
+    <script src="javascripts\anime.min.js" charset="utf-8"></script>
+    <script>
+    function volumeBlock () {
+      if (document.getElementsByClassName('volueRange')[0].style.display == 'flex') {
+        anime({
+          targets: '.volueRange',
+          width: '50px',
+          easing: 'easeInOutQuad'
+        })
+        document.getElementById('size').style.display = 'none'
+        function none () {document.getElementsByClassName('volueRange')[0].style.display = 'none'}
+        setTimeout(none,1000)
+
+      } else {
+        document.getElementById('size').style.display = 'none'
+        anime({
+          targets: '.volueRange',
+          width: '250px',
+          easing: 'easeInOutQuad',
+          duration: 1000
+        })
+        document.getElementsByClassName('volueRange')[0].style.display = 'flex'
+        function flex () {
+          document.getElementById('size').style.display = 'block'
+        }
+        setTimeout(flex,1000)
+      }
+    }
+        document.onkeydown = function (e) {
+          switch (e.keyCode) {
+            case 13:
+              sendMessage(document.getElementById('inputMessage').value)
+              break;
+            default:
+
+          }
+        }
+        if (localStorage.getItem('Nickname') != undefined) {
+            document.getElementById('Nickname').value = localStorage.getItem('Nickname')
+        }
+
+        function volumeChange(value) {
+            Howler.volume(value / 100)
+            setCookie('volue', value / 100)
+        }
+
+        function timer() {
+            time = Number(document.getElementById('time').innerHTML)
+            if (time <= 0) {
+                return
+            }
+            document.getElementById('time').innerHTML = time - 1
+            setTimeout(timer, 1000)
+        }
+
+        /////функция обработки нажатия/////
+        function buttonGo(idButton) {
+            i = 1
+            while (i <= 4) {
+                document.getElementById(String(i)).style.backgroundColor = '#0dbeff'
+                i++
+            }
+            document.getElementById(idButton).style.backgroundColor = '#ffc761'
+
+            result = document.getElementById('span' + idButton).innerHTML
+            localStorage.setItem('song', result)
+            userAction(result)
+        }
+
+        /////Работа с юзерами///////
+        function peopleOtbr(users) {
+            people = ''
+            users.forEach((user) => {
+                if (user.lastAnswer == undefined) {
+                    userAnsver = '?'
+                } else if (user.lastAnswer) {
+                    userAnsver = '✔'
+                } else {
+                    userAnsver = '✖'
+                }
+                people = people + `<div>
+              <span id="true">` + userAnsver + `</span>
+              <div class="namePlayer"> ` + user.name + ` </div>
+              <span id="point">` + user.pts + `</span></div>`
+            })
+            return people
+        }
+        /////////функция создания кнопок//////
+        function songButton(name1, name2, name3, name4) {
+            songs = `<div onclick="buttonGo(this.id)" id="1"><span style="margin: auto;" id="span1">` + name1 + `</span></div>
+        <div onclick="buttonGo(this.id)" id="2"><span style="margin: auto;" id="span2">` + name2 + `</span></div>
+        <div onclick="buttonGo(this.id)" id="3"><span style="margin: auto;" id="span3">` + name3 + `</span></div>
+        <div onclick="buttonGo(this.id)" id="4"><span style="margin: auto;" id="span4">` + name4 + `</span></div>`
+            return songs
+        }
+
+        let PING
+        let PINGtime
+        let socket
+        let audio = new Howl({
+            src: [''],
+            autoplay: true,
+            html5: true
+        })
+
+        function webSocketInitialize() {
+            socket = new WebSocket("ws://diwos.online", 'echo-protocol')
+
+            socket.onmessage = function(event) {
+                jsonFile = JSON.parse(event.data)
+                    //console.log(jsonFile)
+                if (jsonFile.type == 'ping') {
+                    PING = ((new Date()).getTime() - PINGtime)
+                        //document.getElementById('ping').innerHTML     = PING + ' мс'
+
+                } else if  (jsonFile.type == 'userMessage') {
+
+                  // jsonFile.type
+                  // jsonFile.userName
+                  // jsonFile.message
+                  //asd
+                  // '<div class="messagePlayer">
+                  //     <span class="timeMessage">10:10</span>
+                  //     <span class="playerMessage">Ник: 123121321</span>
+                  // </div>'
+                } else if (jsonFile.type == 'roundBroadcastUserUpdate') {
+                    let users = jsonFile.users
+                    let nowSong = jsonFile.nowSong
+                    let lastSong = jsonFile.lastSong
+
+                    people = peopleOtbr(users)
+
+
+                    document.getElementById('divPeople').innerHTML = people
+
+                } else if (jsonFile.type == 'roundBroadcastStart') {
+                    let users = jsonFile.users
+                    let nowSong = jsonFile.nowSong
+                    let lastSong = jsonFile.lastSong
+                    document.getElementById('nameSong').style.display = 'none';
+
+                    people = peopleOtbr(users)
+                    songs = songButton(nowSong.name0, nowSong.name1, nowSong.name2, nowSong.name3)
+
+                    Howler.stop()
+
+                    audio = new Howl({
+                        src: [nowSong.songDirHidden],
+                        autoplay: true,
+                        html5: true
+                    })
+                    audio.play()
+                    document.getElementById('time').innerHTML = '10'
+
+
+                    // console.log(audio)
+                    // console.log(nowSong.songDirHidden)
+
+                    // console.log(nowSong.songDirHidden)
+                    // audio.play()
+
+                    setTimeout(timer, 1000)
+
+
+                    document.getElementById('img').src = 'images/animechoice.png'
+                        // soundClick()
+                    document.getElementById('divPeople').innerHTML = people
+                    document.getElementById('selection').innerHTML = songs
+
+                } else if (jsonFile.type == 'roundBroadcastEnd') {
+
+                    let users = jsonFile.users
+                    let nowSong = jsonFile.nowSong
+                    let lastSong = jsonFile.lastSong
+
+                    people = peopleOtbr(users)
+                    localStorage.removeItem('song')
+
+                    setTimeout(fader, 7000)
+                    document.getElementById('nameSong').style.display = 'block';
+                    document.getElementById('nameSong').innerHTML = nowSong.rightname;
+                    // console.log(nowSong)
+                    //picDirHidden
+                    document.getElementById('img').src = jsonFile.nowSong.picDirHidden
+                    document.getElementById('divPeople').innerHTML = people
+
+                }
+
+            }
+
+            socket.onopen = function(event) {
+                userAction(undefined)
+            }
+        }
+
+        function fader() {
+            audio.fade(1, 0, 3000)
+        }
+
+        webSocketInitialize()
+
+        function goPING() {
+            if (socket.readyState > 1) {
+                //document.getElementById('ping').innerHTML     = 'offline';
+                webSocketInitialize()
+                return
+            }
+
+            PINGtime = (new Date()).getTime()
+            let message = {
+                type: 'ping',
+                token: getCookies('token')
+            }
+            socket.send(JSON.stringify(message))
+        }
+        setInterval(goPING, 5000)
+
+
+        function userAction(name) {
+            let message = {
+                type: 'button',
+                token: getCookies('token'),
+                userName: document.getElementById('Nickname').value, // .value.replace("<",'')
+                songName: name
+            }
+            socket.send(JSON.stringify(message))
+            localStorage.setItem('Nickname', document.getElementById('Nickname').value)
+        }
+
+        function sendMessage (message) {
+          if (message.length > 0) {
+            let JSONmessage = {
+              type : 'userMessage',
+              token : getCookies('token'),
+              userName : document.getElementById('Nickname').value,
+              message : message
+            }
+            socket.send(JSON.stringify(JSONmessage))
+          }
+        }
+
+
+        function makeToken() {
+            var text = "";
+            var possible = "abcdefghijklmnopqrstuvwxyz";
+
+            for (var i = 0; i < 200; i++)
+                text += possible.charAt(Math.floor(Math.random() * possible.length));
+
+            return text;
+        }
+
+        ///////Работа с куки/////////
+        function getCookies(name) {
+            let i = 0
+            let cookies = document.cookie.split('; ')
+            let cookieName = name + '='
+            while (i < cookies.length) {
+                if (cookies[i].startsWith(cookieName)) {
+                    let valueCookies = cookies[i].split('=')
+                    return valueCookies[1]
+                    break
+                }
+                i++
+            }
+        }
+
+        function setCookie(name, value, options = {}) {
+
+            options = {
+                path: '/',
+                // при необходимости добавьте другие значения по умолчанию
+                ...options
+            }
+
+            if (options.expires instanceof Date) {
+                options.expires = options.expires.toUTCString();
+            }
+
+            let updatedCookie = encodeURIComponent(name) + "=" + encodeURIComponent(value);
+
+            for (let optionKey in options) {
+                updatedCookie += "; " + optionKey;
+                let optionValue = options[optionKey];
+                if (optionValue !== true) {
+                    updatedCookie += "=" + optionValue;
+                }
+            }
+
+            document.cookie = updatedCookie;
+        }
+
+        function deleteCookie(name) {
+            setCookie(name, "", {
+                'max-age': -1
+            })
+        }
+
+        function LogOut() {
+            deleteCookie('token')
+            location.href = 'login'
+        }
+
+        if (getCookies('token') == undefined) {
+            setCookie('token', makeToken())
+        }
+
+        if (getCookies('volue') != undefined) {
+            document.getElementById('size').value = getCookies('volue') * 100
+            Howler.volume(getCookies('volue'))
+        }
+    </script>
+</body>
+
+</html>
